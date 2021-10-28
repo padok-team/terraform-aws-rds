@@ -1,6 +1,6 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/padok-team/terraform-module-example/issues) before making a change.  **REPLACE THIS WITH THE URL OF YOUR REPO**
+When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/padok-team/terraform-aws-rds/issues) before making a change.
 
 ## Pull Request Process
 
@@ -51,7 +51,7 @@ also the place to reference GitHub issues that this commit **Closes**.
 **Breaking Changes** should start with the word `BREAKING CHANGE:` with a space
 or two newlines. The rest of the commit message is then used for this.
 
-[submitting an issue]: https://github.com/padok-team/terraform-module-example/issues **REPLACE THIS WITH THE URL OF YOUR REPO**
-[GitHub Repository]: https://github.com/padok-team/terraform-module-example **REPLACE THIS WITH THE URL OF YOUR REPO**
+[submitting an issue]: https://github.com/padok-team/terraform-aws-rds/issues **REPLACE THIS WITH THE URL OF YOUR REPO**
+[GitHub Repository]: https://github.com/padok-team/terraform-aws-rds **REPLACE THIS WITH THE URL OF YOUR REPO**
 [Angular commit message]: https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit-message-format
 [Closing reference to an issue]: https://help.github.com/articles/closing-issues-via-commit-messages/
