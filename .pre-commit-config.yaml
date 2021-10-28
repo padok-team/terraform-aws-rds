@@ -1,0 +1,17 @@
+default_stages: [commit]
+repos:
+    - repo: https://github.com/commitizen-tools/commitizen
+      rev: v2.16.0
+      hooks:
+          - id: commitizen
+            stages:
+                - commit-msg
+    - repo: git://github.com/antonbabenko/pre-commit-terraform
+      rev: v1.51.0
+      hooks:
+        - id: terraform_fmt
+        - id: terraform_validate
+    - repo: git://github.com/pre-commit/pre-commit-hooks
+      rev: v4.0.1
+      hooks:
+        - id: check-merge-conflict
