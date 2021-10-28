@@ -54,7 +54,7 @@ module "rds" {
 ## Examples
 
 - [AAOps I deploy a postgres rds instance with multi AZ availability with custom KMS key for secrets and rds encryption](examples/multi_az_rds_instance_postgres/main.tf)
-- [AAOps I Deploy a mysql rds instance without multi AZ and with auto generated KMS Keys](examples/one_az_rds_instance_mysql/main.tf)
+- [AAOps I Deploy a postgres rds instance without multi AZ and with auto generated KMS Keys](examples/one_az_rds_instance_postgres/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules
