@@ -88,7 +88,7 @@ resource "aws_db_instance" "aws_rds" {
   multi_az                            = var.multi_az
   port                                = var.port != null ? var.port : local.engine_config[var.engine].port
   db_subnet_group_name                = aws_db_subnet_group.aws_rds.id
-  availability_zone                   = var.multi_az ? null : "${var.aws_region}${var.aws_region_az[0]}"
+  availability_zone                   = var.multi_az ? null : var.availability_zone
   vpc_security_group_ids              = [aws_security_group.aws_rds.id]
   publicly_accessible                 = var.publicly_accessible
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
