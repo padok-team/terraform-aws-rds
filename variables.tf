@@ -168,6 +168,16 @@ variable "db_parameter_family" {
   description = "The family of the DB parameter group. Among postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL and Postgres"
 }
 
+variable "parameters" {
+  type = list(object({
+    name         = string
+    value        = string
+    apply_method = string
+  }))
+  description = "(Optional) List of paramaters to add to the database"
+  default     = []
+}
+
 # ===========================[ Use existing Encryption key ]========================
 
 variable "arn_custom_kms_key" {
