@@ -6,9 +6,9 @@ variable "tags" {
   description = "Tags to attach to all resources created by this module"
 }
 
-variable "availability_zone"{
-  type = string
-  default = "eu-west-3a"
+variable "availability_zone" {
+  type        = string
+  default     = "eu-west-3a"
   description = "Availability zone to use when Multi AZ is disabled"
 }
 
@@ -135,6 +135,12 @@ variable "deletion_protection" {
   default     = true
   description = "If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true"
 
+}
+
+variable "security_group_id" {
+  type        = string
+  default     = ""
+  description = "(Optional) Security group to apply this rule to."
 }
 
 variable "authorized_security_groups" {
