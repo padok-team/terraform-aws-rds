@@ -2,7 +2,7 @@ locals {
   engine_config = {
     "mysql" : {
       port : 3306,
-      force_ssl_rule : "require_secure_transport",
+      force_ssl_rule : "",
     },
     "postgres" : {
       port : 5432,
@@ -49,7 +49,7 @@ resource "aws_db_parameter_group" "aws_rds" {
   family = var.db_parameter_family
   tags   = var.tags
   dynamic "parameter" {
-    for_each = var.force_ssl ? { "enabled" : true } : {}
+    for_each = (var.force_ssl && var.engine != "mysql") ? { "enabled" : true } : {}
     content {
       name         = local.engine_config[var.engine].force_ssl_rule
       value        = var.force_ssl ? 1 : 0
