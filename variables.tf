@@ -85,7 +85,7 @@ variable "allow_major_version_upgrade" {
 }
 variable "backup_retention_period" {
   type        = number
-  default     = 15
+  default     = 30
   description = "Backup retention period"
 }
 
