@@ -6,9 +6,9 @@ variable "tags" {
   description = "Tags to attach to all resources created by this module"
 }
 
-variable "availability_zone"{
-  type = string
-  default = "eu-west-3a"
+variable "availability_zone" {
+  type        = string
+  default     = "eu-west-3a"
   description = "Availability zone to use when Multi AZ is disabled"
 }
 
@@ -85,7 +85,7 @@ variable "allow_major_version_upgrade" {
 }
 variable "backup_retention_period" {
   type        = number
-  default     = 15
+  default     = 30
   description = "Backup retention period"
 }
 
@@ -137,6 +137,12 @@ variable "deletion_protection" {
 
 }
 
+variable "security_group_id" {
+  type        = string
+  default     = ""
+  description = "(Optional) Security group to apply this rule to."
+}
+
 variable "authorized_security_groups" {
   type        = list(string)
   default     = []
@@ -160,6 +166,16 @@ variable "vpc_id" {
 variable "db_parameter_family" {
   type        = string
   description = "The family of the DB parameter group. Among postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL and Postgres"
+}
+
+variable "parameters" {
+  type = list(object({
+    name         = string
+    value        = string
+    apply_method = string
+  }))
+  description = "(Optional) List of paramaters to add to the database"
+  default     = []
 }
 
 # ===========================[ Use existing Encryption key ]========================

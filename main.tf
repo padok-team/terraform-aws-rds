@@ -2,7 +2,7 @@ locals {
   engine_config = {
     "mysql" : {
       port : 3306,
-      force_ssl_rule : "require_secure_transport",
+      force_ssl_rule : "",
     },
     "postgres" : {
       port : 5432,
@@ -49,11 +49,19 @@ resource "aws_db_parameter_group" "aws_rds" {
   family = var.db_parameter_family
   tags   = var.tags
   dynamic "parameter" {
-    for_each = var.force_ssl ? { "enabled" : true } : {}
+    for_each = (var.force_ssl && var.engine != "mysql") ? { "enabled" : true } : {}
     content {
       name         = local.engine_config[var.engine].force_ssl_rule
       value        = var.force_ssl ? 1 : 0
       apply_method = "pending-reboot"
+    }
+  }
+  dynamic "parameter" {
+    for_each = var.parameters
+    content {
+      name         = parameter.value.name
+      value        = parameter.value.value
+      apply_method = parameter.value.apply_method
     }
   }
 }
@@ -89,7 +97,7 @@ resource "aws_db_instance" "aws_rds" {
   port                                = var.port != null ? var.port : local.engine_config[var.engine].port
   db_subnet_group_name                = aws_db_subnet_group.aws_rds.id
   availability_zone                   = var.multi_az ? null : var.availability_zone
-  vpc_security_group_ids              = [aws_security_group.aws_rds.id]
+  vpc_security_group_ids              = var.security_group_id != "" ? [var.security_group_id] : [aws_security_group.aws_rds[0].id]
   publicly_accessible                 = var.publicly_accessible
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
 
@@ -119,6 +127,7 @@ resource "aws_db_subnet_group" "aws_rds" {
 }
 
 resource "aws_security_group" "aws_rds" {
+  for_each    = var.security_group_id != "" ? [] : [""]
   name        = "${var.identifier}-sg"
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
@@ -126,7 +135,7 @@ resource "aws_security_group" "aws_rds" {
 
 resource "aws_security_group_rule" "aws_rds" {
   for_each                 = toset(var.authorized_security_groups)
-  security_group_id        = aws_security_group.aws_rds.id
+  security_group_id        = var.security_group_id != "" ? var.security_group_id : aws_security_group.aws_rds[0].id
   type                     = "ingress"
   protocol                 = "tcp"
   from_port                = var.port != null ? var.port : local.engine_config[var.engine].port

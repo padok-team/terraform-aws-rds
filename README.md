@@ -12,7 +12,7 @@ Terraform module which creates **RDS** resources on **AWS**.
 
 ```hcl
 module "rds" {
-  source = "https://github.com/padok-team/terraform-aws-rds.git?ref=v1.0.0"
+  source = "https://github.com/padok-team/terraform-aws-rds.git?ref=v1.0.1"
 
   tags = {
     "Name" : "rds-poc-library-multi-az",
@@ -65,7 +65,7 @@ No modules.
 | <a name="input_authorized_security_groups"></a> [authorized\_security\_groups](#input\_authorized\_security\_groups) | List of the security group that are allowed to access RDS Instance | `list(string)` | `[]` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window | `bool` | `true` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone to use when Multi AZ is disabled | `string` | `"eu-west-3a"` | no |
-| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | Backup retention period | `number` | `15` | no |
+| <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | Backup retention period | `number` | `30` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true | `bool` | `true` | no |
 | <a name="input_force_ssl"></a> [force\_ssl](#input\_force\_ssl) | Force SSL for DB connections | `string` | `true` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled | `bool` | `false` | no |
@@ -74,12 +74,14 @@ No modules.
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | When configured, the upper limit to which Amazon RDS can automatically scale the storage of the DB instance | `number` | `50` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Set to true to deploy a multi AZ RDS instance | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of your database in your RDS instance | `string` | `"aws_padok_database_instance"` | no |
+| <a name="input_parameters"></a> [parameters](#input\_parameters) | (Optional) List of paramaters to add to the database | <pre>list(object({<br>    name         = string<br>    value        = string<br>    apply_method = string<br>  }))</pre> | `[]` | no |
 | <a name="input_password_length"></a> [password\_length](#input\_password\_length) | Password length for db master user, Minimum length is 25 | `number` | `40` | no |
 | <a name="input_performance_insights_enabled"></a> [performance\_insights\_enabled](#input\_performance\_insights\_enabled) | Set to true to enable performance insights on your RDS instance | `bool` | `true` | no |
 | <a name="input_port"></a> [port](#input\_port) | The port on which the DB accepts connections. Default is chosen depeding on the engine | `number` | `null` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Bool to control if instance is publicly accessible. | `bool` | `false` | no |
 | <a name="input_rds_secret_recovery_window_in_days"></a> [rds\_secret\_recovery\_window\_in\_days](#input\_rds\_secret\_recovery\_window\_in\_days) | Secret recovery window in days | `number` | `10` | no |
 | <a name="input_rds_skip_final_snapshot"></a> [rds\_skip\_final\_snapshot](#input\_rds\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted | `bool` | `false` | no |
+| <a name="input_security_group_id"></a> [security\_group\_id](#input\_security\_group\_id) | (Optional) Security group to apply this rule to. | `string` | `""` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD) | `string` | `"gp2"` | no |
 | <a name="input_username"></a> [username](#input\_username) | Name of the master user for the database in your RDS Instance | `string` | `"admin"` | no |
 
@@ -94,3 +96,28 @@ No modules.
 ## Next Steps
 - Read Replicas
 - RDS Proxy
+
+## License
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+See [LICENSE](LICENSE) for full details.
+
+```text
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+```
