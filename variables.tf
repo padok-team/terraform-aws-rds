@@ -1,11 +1,6 @@
 
 # ================================[ General ]===============================
 
-variable "tags" {
-  type        = map(any)
-  description = "Tags to attach to all resources created by this module"
-}
-
 variable "availability_zone" {
   type        = string
   default     = "eu-west-3a"

@@ -17,7 +17,7 @@ locals {
 
 # =============================[ RDS Password ]=============================
 
-resource "random_password" "aws_rds" {
+resource "random_password" "this" {
   length      = var.password_length
   special     = false
   upper       = true
@@ -28,26 +28,25 @@ resource "random_password" "aws_rds" {
   min_numeric = 5
 }
 
-resource "aws_secretsmanager_secret" "aws_rds" {
+resource "aws_secretsmanager_secret" "this" {
   name                    = "${var.identifier}-password"
   description             = "${var.identifier} RDS password secret"
   recovery_window_in_days = var.rds_secret_recovery_window_in_days
-  kms_key_id              = var.arn_custom_kms_key_secret == null ? aws_kms_key.aws_rds.0.arn : var.arn_custom_kms_key_secret
+  kms_key_id              = var.arn_custom_kms_key_secret == null ? aws_kms_key.this.0.arn : var.arn_custom_kms_key_secret
 }
 
-resource "aws_secretsmanager_secret_version" "aws_rds" {
-  secret_id = aws_secretsmanager_secret.aws_rds.id
+resource "aws_secretsmanager_secret_version" "this" {
+  secret_id = aws_secretsmanager_secret.this.id
   secret_string = jsonencode({
-    db_password = random_password.aws_rds.result
+    db_password = random_password.this.result
   })
 }
 
 # =============================[ RDS Instance ]=============================
 
-resource "aws_db_parameter_group" "aws_rds" {
+resource "aws_db_parameter_group" "this" {
   name   = "${var.identifier}-db-parameter-group"
   family = var.db_parameter_family
-  tags   = var.tags
   dynamic "parameter" {
     for_each = (var.force_ssl && var.engine != "mysql") ? { "enabled" : true } : {}
     content {
@@ -66,13 +65,13 @@ resource "aws_db_parameter_group" "aws_rds" {
   }
 }
 
-resource "aws_kms_key" "aws_rds" {
+resource "aws_kms_key" "this" {
   count                   = var.arn_custom_kms_key == null || var.arn_custom_kms_key_secret == null ? 1 : 0
   description             = "KMS key encryption for ${var.identifier}"
   deletion_window_in_days = 10
 }
 
-resource "aws_db_instance" "aws_rds" {
+resource "aws_db_instance" "this" {
 
   identifier = var.identifier
 
@@ -81,23 +80,23 @@ resource "aws_db_instance" "aws_rds" {
   storage_encrypted     = true
   allocated_storage     = var.allocated_storage
   max_allocated_storage = var.max_allocated_storage
-  kms_key_id            = var.arn_custom_kms_key == null ? aws_kms_key.aws_rds.0.arn : var.arn_custom_kms_key
+  kms_key_id            = var.arn_custom_kms_key == null ? aws_kms_key.this.0.arn : var.arn_custom_kms_key
 
   ## DATABASE
   instance_class       = var.instance_class
   engine               = var.engine
   engine_version       = var.engine_version
-  parameter_group_name = aws_db_parameter_group.aws_rds.name
+  parameter_group_name = aws_db_parameter_group.this.name
   name                 = var.name
   username             = var.username
-  password             = random_password.aws_rds.result
+  password             = random_password.this.result
 
   ## NETWORK
   multi_az                            = var.multi_az
   port                                = var.port != null ? var.port : local.engine_config[var.engine].port
-  db_subnet_group_name                = aws_db_subnet_group.aws_rds.id
+  db_subnet_group_name                = aws_db_subnet_group.this.id
   availability_zone                   = var.multi_az ? null : var.availability_zone
-  vpc_security_group_ids              = var.security_group_id != "" ? [var.security_group_id] : [aws_security_group.aws_rds[0].id]
+  vpc_security_group_ids              = var.security_group_id != "" ? [var.security_group_id] : [aws_security_group.this[0].id]
   publicly_accessible                 = var.publicly_accessible
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
 
@@ -112,30 +111,29 @@ resource "aws_db_instance" "aws_rds" {
 
   performance_insights_enabled = var.performance_insights_enabled
   deletion_protection          = var.deletion_protection
-  tags                         = var.tags
 
   lifecycle {
     create_before_destroy = true
   }
 }
 
-resource "aws_db_subnet_group" "aws_rds" {
+resource "aws_db_subnet_group" "this" {
   name        = "db-subnet-group-${var.identifier}"
   description = "DB Subnet group for ${var.identifier}"
 
   subnet_ids = var.subnet_ids
 }
 
-resource "aws_security_group" "aws_rds" {
+resource "aws_security_group" "this" {
   for_each    = var.security_group_id != "" ? [] : [""]
   name        = "${var.identifier}-sg"
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
 }
 
-resource "aws_security_group_rule" "aws_rds" {
+resource "aws_security_group_rule" "this" {
   for_each                 = toset(var.authorized_security_groups)
-  security_group_id        = var.security_group_id != "" ? var.security_group_id : aws_security_group.aws_rds[0].id
+  security_group_id        = var.security_group_id != "" ? var.security_group_id : aws_security_group.this[0].id
   type                     = "ingress"
   protocol                 = "tcp"
   from_port                = var.port != null ? var.port : local.engine_config[var.engine].port
