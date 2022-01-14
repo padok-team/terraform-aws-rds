@@ -1,9 +1,9 @@
-output "rds_endpoint" {
-  value       = aws_db_instance.this.endpoint
-  description = "Endpoint of the RDS Instance"
+output "this" {
+  description = "RDS Instance"
+  value       = aws_db_instance.this
 }
 
-output "rds_identifier" {
-  value       = aws_db_instance.this.identifier
-  description = "Identifier of the RDS Instance"
+output "security_group" {
+  description = "Security group of the RDS Instance"
+  value       = aws_security_group.this
 }
