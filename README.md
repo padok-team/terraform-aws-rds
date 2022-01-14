@@ -14,11 +14,6 @@ Terraform module which creates **RDS** resources on **AWS**.
 module "rds" {
   source = "https://github.com/padok-team/terraform-aws-rds.git?ref=v1.0.1"
 
-  tags = {
-    "Name" : "rds-poc-library-multi-az",
-    "Port" : 5432,
-    "Env" : "poc-library"
-  }
   aws_region = "eu-west-3"
 
   identifier = "rds-poc-library-multi-az"

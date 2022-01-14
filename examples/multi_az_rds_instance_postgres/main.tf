@@ -12,11 +12,6 @@ module "rds" {
   source = "../.."
 
   ## GENERAL
-  tags = {
-    "Name" : "rds-poc-library-multi-az",
-    "Port" : 5432,
-    "Env" : "poc-library"
-  }
   identifier = "rds-poc-library-multi-az"
 
   ## DATABASE
