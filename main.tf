@@ -131,9 +131,9 @@ resource "aws_security_group" "this" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = var.port != null ? var.port : local.engine_config[var.engine].port
-    to_port     = var.port != null ? var.port : local.engine_config[var.engine].port
-    protocol    = "TCP"
-    self = true
+    from_port = var.port != null ? var.port : local.engine_config[var.engine].port
+    to_port   = var.port != null ? var.port : local.engine_config[var.engine].port
+    protocol  = "TCP"
+    self      = true
   }
 }

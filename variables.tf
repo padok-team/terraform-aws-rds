@@ -132,7 +132,7 @@ variable "deletion_protection" {
 }
 
 variable "additionnal_security_groups" {
-  description = "List of the security group that are allowed to access RDS Instance"
+  description = "Additional security group to add to the RDS Instance"
   type        = list(string)
   default     = []
 }
@@ -162,7 +162,7 @@ variable "parameters" {
     value        = string
     apply_method = string
   }))
-  default     = []
+  default = []
 }
 
 # ===========================[ Use existing Encryption key ]========================
