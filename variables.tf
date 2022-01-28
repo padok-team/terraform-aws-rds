@@ -91,7 +91,7 @@ variable "port" {
 }
 
 variable "apply_immediately" {
-  description = "Specifies whether any database modifications are applied immediately, or during the next maintenance window"
+  description = "Specifies if database modifications should be applied immediately, or during the next maintenance window"
   type        = bool
   default     = false
 }
@@ -108,7 +108,7 @@ variable "subnet_ids" {
 }
 
 variable "rds_skip_final_snapshot" {
-  description = "Determines whether a final DB snapshot is created before the DB instance is deleted"
+  description = "If set to true, a final DB snapshot will be created before the DB instance is deleted"
   type        = bool
   default     = false
 }
@@ -120,7 +120,7 @@ variable "storage_type" {
 }
 
 variable "publicly_accessible" {
-  description = "Bool to control if instance is publicly accessible."
+  description = "Boolean to control if instance is publicly accessible."
   type        = bool
   default     = false
 }
@@ -138,25 +138,25 @@ variable "additionnal_security_groups" {
 }
 
 variable "iam_database_authentication_enabled" {
-  description = "Specifies whether or mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled"
+  description = "Specifies whether or not mappings of AWS Identity and Access Management (IAM) accounts to database accounts are enabled"
   type        = bool
   default     = false
 }
 
 variable "vpc_id" {
-  description = "VPC id where the DB is"
+  description = "ID of the VPC to deploy the database to"
   type        = string
 }
 
 # ===========================[ RDS parameter group]========================
 
 variable "db_parameter_family" {
-  description = "The family of the DB parameter group. Among postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL and Postgres"
+  description = "The family of the DB parameter group. Should be on of: postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL or Postgres"
   type        = string
 }
 
 variable "parameters" {
-  description = "(Optional) List of paramaters to add to the database"
+  description = "List of paramaters to add to the database"
   type = list(object({
     name         = string
     value        = string
