@@ -50,7 +50,6 @@ No modules.
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Version of your engine | `string` | n/a | yes |
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | Unique identifier for your RDS instance. For example, aws\_rds\_instance\_postgres\_poc\_library\_break | `string` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of VPC subnet IDs to create your db subnet group | `list(string)` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | Tags to attach to all resources created by this module | `map(any)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where the DB is | `string` | n/a | yes |
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | Storage allocated to your RDS instance in Gigabytes | `number` | `10` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Indicates that major version upgrades are allowed | `bool` | `false` | no |
@@ -84,8 +83,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_rds_endpoint"></a> [rds\_endpoint](#output\_rds\_endpoint) | Endpoint of the RDS Instance |
-| <a name="output_rds_identifier"></a> [rds\_identifier](#output\_rds\_identifier) | Identifier of the RDS Instance |
+| <a name="output_security_group"></a> [security\_group](#output\_security\_group) | Security group of the RDS Instance |
+| <a name="output_this"></a> [this](#output\_this) | RDS Instance |
 <!-- END_TF_DOCS -->
 
 ## Next Steps
