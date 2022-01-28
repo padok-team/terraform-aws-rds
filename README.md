@@ -83,8 +83,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_rds_endpoint"></a> [rds\_endpoint](#output\_rds\_endpoint) | Endpoint of the RDS Instance |
-| <a name="output_rds_identifier"></a> [rds\_identifier](#output\_rds\_identifier) | Identifier of the RDS Instance |
+| <a name="output_security_group"></a> [security\_group](#output\_security\_group) | Security group of the RDS Instance |
+| <a name="output_this"></a> [this](#output\_this) | RDS Instance |
 <!-- END_TF_DOCS -->
 
 ## Next Steps
