@@ -96,7 +96,7 @@ resource "aws_db_instance" "this" {
   port                                = var.port != null ? var.port : local.engine_config[var.engine].port
   db_subnet_group_name                = aws_db_subnet_group.this.id
   availability_zone                   = var.multi_az ? null : var.availability_zone
-  vpc_security_group_ids              = var.security_group_id != "" ? [var.security_group_id] : [aws_security_group.this[0].id]
+  vpc_security_group_ids              = concat([aws_security_group.this.id], var.additionnal_security_groups)
   publicly_accessible                 = var.publicly_accessible
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
 
@@ -124,19 +124,16 @@ resource "aws_db_subnet_group" "this" {
   subnet_ids = var.subnet_ids
 }
 
+# create a security group for RDS
 resource "aws_security_group" "this" {
-  for_each    = var.security_group_id != "" ? [] : [""]
   name        = "${var.identifier}-sg"
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
-}
 
-resource "aws_security_group_rule" "this" {
-  for_each                 = toset(var.authorized_security_groups)
-  security_group_id        = var.security_group_id != "" ? var.security_group_id : aws_security_group.this[0].id
-  type                     = "ingress"
-  protocol                 = "tcp"
-  from_port                = var.port != null ? var.port : local.engine_config[var.engine].port
-  to_port                  = var.port != null ? var.port : local.engine_config[var.engine].port
-  source_security_group_id = each.key
+  ingress {
+    from_port = var.port != null ? var.port : local.engine_config[var.engine].port
+    to_port   = var.port != null ? var.port : local.engine_config[var.engine].port
+    protocol  = "TCP"
+    self      = true
+  }
 }

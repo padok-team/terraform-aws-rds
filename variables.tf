@@ -131,14 +131,8 @@ variable "deletion_protection" {
   default     = true
 }
 
-variable "security_group_id" {
-  description = "(Optional) Security group to apply this rule to."
-  type        = string
-  default     = ""
-}
-
-variable "authorized_security_groups" {
-  description = "List of the security group that are allowed to access RDS Instance"
+variable "additionnal_security_groups" {
+  description = "Additional security group to add to the RDS Instance"
   type        = list(string)
   default     = []
 }
@@ -168,7 +162,7 @@ variable "parameters" {
     value        = string
     apply_method = string
   }))
-  default     = []
+  default = []
 }
 
 # ===========================[ Use existing Encryption key ]========================

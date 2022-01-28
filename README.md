@@ -51,12 +51,12 @@ No modules.
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | Unique identifier for your RDS instance. For example, aws\_rds\_instance\_postgres\_poc\_library\_break | `string` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | A list of VPC subnet IDs to create your db subnet group | `list(string)` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | VPC id where the DB is | `string` | n/a | yes |
+| <a name="input_additionnal_security_groups"></a> [additionnal\_security\_groups](#input\_additionnal\_security\_groups) | Additional security group to add to the RDS Instance | `list(string)` | `[]` | no |
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | Storage allocated to your RDS instance in Gigabytes | `number` | `10` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Indicates that major version upgrades are allowed | `bool` | `false` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Specifies whether any database modifications are applied immediately, or during the next maintenance window | `bool` | `false` | no |
 | <a name="input_arn_custom_kms_key"></a> [arn\_custom\_kms\_key](#input\_arn\_custom\_kms\_key) | Arn of your custom KMS Key. Useful only if custom\_kms\_key is set to true | `string` | `null` | no |
 | <a name="input_arn_custom_kms_key_secret"></a> [arn\_custom\_kms\_key\_secret](#input\_arn\_custom\_kms\_key\_secret) | Encrypt AWS secret with CMK | `string` | `null` | no |
-| <a name="input_authorized_security_groups"></a> [authorized\_security\_groups](#input\_authorized\_security\_groups) | List of the security group that are allowed to access RDS Instance | `list(string)` | `[]` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window | `bool` | `true` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone to use when Multi AZ is disabled | `string` | `"eu-west-3a"` | no |
 | <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | Backup retention period | `number` | `30` | no |
@@ -75,7 +75,6 @@ No modules.
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Bool to control if instance is publicly accessible. | `bool` | `false` | no |
 | <a name="input_rds_secret_recovery_window_in_days"></a> [rds\_secret\_recovery\_window\_in\_days](#input\_rds\_secret\_recovery\_window\_in\_days) | Secret recovery window in days | `number` | `10` | no |
 | <a name="input_rds_skip_final_snapshot"></a> [rds\_skip\_final\_snapshot](#input\_rds\_skip\_final\_snapshot) | Determines whether a final DB snapshot is created before the DB instance is deleted | `bool` | `false` | no |
-| <a name="input_security_group_id"></a> [security\_group\_id](#input\_security\_group\_id) | (Optional) Security group to apply this rule to. | `string` | `""` | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD) | `string` | `"gp2"` | no |
 | <a name="input_username"></a> [username](#input\_username) | Name of the master user for the database in your RDS Instance | `string` | `"admin"` | no |
 
