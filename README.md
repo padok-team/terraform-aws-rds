@@ -45,7 +45,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_db_parameter_family"></a> [db\_parameter\_family](#input\_db\_parameter\_family) | The family of the DB parameter group. Should be on of: postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL or Postgres | `string` | n/a | yes |
+| <a name="input_db_parameter_family"></a> [db\_parameter\_family](#input\_db\_parameter\_family) | The family of the DB parameter group. Should be one of: postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL or Postgres | `string` | n/a | yes |
 | <a name="input_engine"></a> [engine](#input\_engine) | Engine used for your RDS instance (mysql, postgres ...) | `string` | n/a | yes |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Version of your engine | `string` | n/a | yes |
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | Unique identifier for your RDS instance. For example, aws\_rds\_instance\_postgres\_poc\_library\_break | `string` | n/a | yes |

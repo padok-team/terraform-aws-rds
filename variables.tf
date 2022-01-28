@@ -151,7 +151,7 @@ variable "vpc_id" {
 # ===========================[ RDS parameter group]========================
 
 variable "db_parameter_family" {
-  description = "The family of the DB parameter group. Should be on of: postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL or Postgres"
+  description = "The family of the DB parameter group. Should be one of: postgres11, postgres12, postgres13, mysql5.6, mysql5.7, mysql8.0 for MySQL or Postgres"
   type        = string
 }
 
