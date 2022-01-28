@@ -1,12 +1,38 @@
+terraform {
+  required_version = ">= 1.1.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 3.63"
+    }
+  }
+}
+
 provider "aws" {
-  region = "eu-west-3"
+  region = local.region
 
   default_tags {
     tags = {
+      Env         = local.env
+      Region      = local.region
+      OwnedBy     = "Padok"
       ManagedByTF = true
     }
   }
 }
+
+# some variables to make life easier
+locals {
+
+  name   = "basic_private"
+  env    = "test"
+  region = "eu-west-3"
+}
+
+################################################################################
+# RDS
+################################################################################
 
 module "rds" {
   source = "../.."
@@ -22,7 +48,33 @@ module "rds" {
   username            = "aws_rds_instance_postgresql_user_poc_library_multi_az"
 
   ## NETWORK
-  subnet_ids = ["subnet-0f55d716e3746c4db", "subnet-0ced4e0a55a479422", "subnet-0005a41a2318130e5"]
-  vpc_id     = "vpc-0fcea78a178762e3f"
+  subnet_ids = module.my_vpc.private_subnets_ids
+  vpc_id     = module.my_vpc.vpc_id
+}
 
+# To allow access to the database for other ressource
+# use the security_group from the output in your other resources
+#
+# You can also use additional_security_groups parameters to add 
+# more security groups to the database
+
+################################################################################
+# Supporting resources
+################################################################################
+
+module "my_vpc" {
+  source = "git@github.com:padok-team/terraform-aws-network.git"
+
+  vpc_name              = local.name
+  vpc_availability_zone = ["eu-west-3a", "eu-west-3b"]
+
+  vpc_cidr            = "10.142.0.0/16"
+  public_subnet_cidr  = ["10.142.1.0/28", "10.142.2.0/28"]    # small subnets for natgateway
+  private_subnet_cidr = ["10.142.64.0/18", "10.142.128.0/18"] # big subnet for EKS
+
+  single_nat_gateway = true # warning : not for production !
+
+  tags = {
+    CostCenter = "Network"
+  }
 }

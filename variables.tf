@@ -131,13 +131,7 @@ variable "deletion_protection" {
   default     = true
 }
 
-variable "security_group_id" {
-  description = "(Optional) Security group to apply this rule to."
-  type        = string
-  default     = ""
-}
-
-variable "authorized_security_groups" {
+variable "additionnal_security_groups" {
   description = "List of the security group that are allowed to access RDS Instance"
   type        = list(string)
   default     = []
