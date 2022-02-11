@@ -46,6 +46,16 @@ module "rds" {
   db_parameter_family = "postgres13"
   name                = "aws_rds_instance_postgresql_db_poc_library_multi_az"
   username            = "aws_rds_instance_postgresql_user_poc_library_multi_az"
+  parameters = [{
+    name         = "application_name"
+    value        = "mydb"
+    apply_method = "immediate"
+    },
+    {
+      name         = "rds.rds_superuser_reserved_connections"
+      value        = 4
+      apply_method = "pending-reboot"
+  }]
 
   ## NETWORK
   subnet_ids = module.my_vpc.private_subnets_ids

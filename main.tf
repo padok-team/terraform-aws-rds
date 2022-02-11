@@ -45,8 +45,8 @@ resource "aws_secretsmanager_secret_version" "this" {
 # =============================[ RDS Instance ]=============================
 
 resource "aws_db_parameter_group" "this" {
-  name   = "${var.identifier}-db-parameter-group"
-  family = var.db_parameter_family
+  name_prefix = "${var.identifier}-"
+  family      = var.db_parameter_family
   dynamic "parameter" {
     for_each = (var.force_ssl && var.engine != "mysql") ? { "enabled" : true } : {}
     content {
