@@ -61,7 +61,7 @@ No modules.
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone to use when Multi AZ is disabled | `string` | `"eu-west-3a"` | no |
 | <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | Backup retention period | `number` | `30` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true | `bool` | `true` | no |
-| <a name="input_force_ssl"></a> [force\_ssl](#input\_force\_ssl) | Force SSL for DB connections | `string` | `true` | no |
+| <a name="input_force_ssl"></a> [force\_ssl](#input\_force\_ssl) | Force SSL for DB connections, only works with Postres engine | `string` | `true` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Specifies whether or not mappings of AWS Identity and Access Management (IAM) accounts to database accounts are enabled | `bool` | `false` | no |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Instance class for your RDS instance | `string` | `"db.t3.micro"` | no |
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi'. Eg: 'Mon:00:00-Mon:03:00' | `string` | `"Mon:00:00-Mon:03:00"` | no |
