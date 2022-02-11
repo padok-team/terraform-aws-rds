@@ -25,7 +25,7 @@ provider "aws" {
 # some variables to make life easier
 locals {
 
-  name   = "basic_private"
+  name   = "basic_private_mysql"
   env    = "test"
   region = "eu-west-3"
 }
@@ -54,6 +54,16 @@ module "rds" {
   name                         = "aws_rds_instance_mysql_db_poc_library_one_az"
   username                     = "aws_mysql_user" # With Mysql username length cannot be greater than 16 characters
 
+  parameters = [{
+    name         = "disconnect_on_expired_password"
+    value        = 1
+    apply_method = "pending-reboot"
+    },
+    {
+      name         = "max_user_connections"
+      value        = 4
+      apply_method = "pending-reboot"
+  }]
   ## NETWORK
   subnet_ids = module.my_vpc.private_subnets_ids
   vpc_id     = module.my_vpc.vpc_id
