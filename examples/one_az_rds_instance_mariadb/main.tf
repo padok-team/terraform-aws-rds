@@ -42,11 +42,9 @@ module "rds" {
   identifier = "rds-poc-library-one-az-mariadb"
 
   ## STORAGE
-  allocated_storage         = 5
-  max_allocated_storage     = 10
-  instance_class            = "db.t3.micro"
-  arn_custom_kms_key        = "<arn kms key>"
-  arn_custom_kms_key_secret = "<arn kms key>"
+  allocated_storage     = 5
+  max_allocated_storage = 10
+  instance_class        = "db.t3.micro"
 
   ## DATABASE
   engine                       = "mariadb"
