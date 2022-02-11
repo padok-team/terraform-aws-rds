@@ -45,8 +45,8 @@ module "rds" {
   allocated_storage         = 5
   max_allocated_storage     = 10
   instance_class            = "db.t3.micro"
-  arn_custom_kms_key        = "arn:aws:kms:eu-west-3:334033969502:key/32f9b735-8eed-4f91-b94b-5761a7a57b63"
-  arn_custom_kms_key_secret = "arn:aws:kms:eu-west-3:334033969502:key/32f9b735-8eed-4f91-b94b-5761a7a57b63"
+  arn_custom_kms_key        = "<arn kms key>"
+  arn_custom_kms_key_secret = "<arn kms key>"
 
   ## DATABASE
   engine                       = "mariadb"
