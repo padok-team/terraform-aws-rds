@@ -39,7 +39,7 @@ module "rds" {
   source = "../.."
 
   ## GENERAL
-  identifier = "rds-poc-library-one-az"
+  identifier = "rds-poc-library-one-az-mariadb"
 
   ## STORAGE
   allocated_storage     = 5
@@ -47,12 +47,13 @@ module "rds" {
   instance_class        = "db.t3.micro"
 
   ## DATABASE
-  engine                       = "mysql"
-  engine_version               = "5.7"
-  db_parameter_family          = "mysql5.7"
-  performance_insights_enabled = false # Performance insight is not supported by MySQL
-  name                         = "aws_rds_instance_mysql_db_poc_library_one_az"
-  username                     = "aws_mysql_user" # With Mysql username length cannot be greater than 16 characters
+  engine                       = "mariadb"
+  engine_version               = "10.5.13"
+  db_parameter_family          = "mariadb10.5"
+  performance_insights_enabled = false # Performance insight is not supported by MariaDB
+  name                         = "aws_rds_instance_mariadb_db_poc_library_one_az"
+  username                     = "aws_mariadbl_user" # With MariaDB username length cannot be greater than 16 characters
+  force_ssl                    = false               # force_ssl true does not work with mariadb DB engine
 
   ## NETWORK
   subnet_ids = module.my_vpc.private_subnets_ids

@@ -10,7 +10,7 @@ locals {
     },
     "mariadb" : {
       port : 3306,
-      force_ssl_rule : "require_secure_transport"
+      force_ssl_rule : ""
     },
   }
 }
