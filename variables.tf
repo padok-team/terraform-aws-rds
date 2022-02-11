@@ -182,7 +182,7 @@ variable "rds_secret_recovery_window_in_days" {
 }
 
 variable "force_ssl" {
-  description = "Force SSL for DB connections, only works with Postres engine"
+  description = "Force SSL for DB connections, only works with Postgres engine"
   type        = string
   default     = true
 }
