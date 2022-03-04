@@ -136,6 +136,7 @@ resource "aws_security_group" "this" {
     to_port         = var.port != null ? var.port : local.engine_config[var.engine].port
     protocol        = "TCP"
     security_groups = var.security_group_ids
+    self            = length(var.security_group_ids) == 0 ? true : false
   }
 
   tags = {
