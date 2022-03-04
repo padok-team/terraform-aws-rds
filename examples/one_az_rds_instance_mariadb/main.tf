@@ -56,18 +56,23 @@ module "rds" {
   force_ssl                    = false               # force_ssl true does not work with mariadb DB engine
 
   ## NETWORK
-  subnet_ids = module.my_vpc.private_subnets_ids
-  vpc_id     = module.my_vpc.vpc_id
+  subnet_ids         = module.my_vpc.private_subnets_ids
+  vpc_id             = module.my_vpc.vpc_id
+  security_group_ids = [aws_security_group.a_basic_security_group.id]
+
 
   ## MAINTENANCE & BACKUP
   backup_retention_period = 10
 }
 
-# To allow access to the database for other ressource
-# use the security_group from the output in your other resources
-#
-# You can also use additional_security_groups parameters to add 
-# more security groups to the database
+# Use this security group to allow access to the RDS instance
+# For example by adding your EC2 instance to the security group
+resource "aws_security_group" "a_basic_security_group" {
+  name        = "a_basic_security_group"
+  description = "A example of a security group for my backend"
+  vpc_id      = module.my_vpc.vpc_id
+}
+
 
 ################################################################################
 # Supporting resources
