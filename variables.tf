@@ -131,8 +131,8 @@ variable "deletion_protection" {
   default     = true
 }
 
-variable "additionnal_security_groups" {
-  description = "Additional security group to add to the RDS Instance"
+variable "security_group_ids" {
+  description = "Security group IDs allowed to connect to the RDS Instance"
   type        = list(string)
   default     = []
 }

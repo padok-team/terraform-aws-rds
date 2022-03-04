@@ -96,7 +96,7 @@ resource "aws_db_instance" "this" {
   port                                = var.port != null ? var.port : local.engine_config[var.engine].port
   db_subnet_group_name                = aws_db_subnet_group.this.id
   availability_zone                   = var.multi_az ? null : var.availability_zone
-  vpc_security_group_ids              = concat([aws_security_group.this.id], var.additionnal_security_groups)
+  vpc_security_group_ids              = [aws_security_group.this.id]
   publicly_accessible                 = var.publicly_accessible
   iam_database_authentication_enabled = var.iam_database_authentication_enabled
 
@@ -130,10 +130,15 @@ resource "aws_security_group" "this" {
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
 
+  # In case of an empty list of security group ids, create a default without inbound allowed
   ingress {
-    from_port = var.port != null ? var.port : local.engine_config[var.engine].port
-    to_port   = var.port != null ? var.port : local.engine_config[var.engine].port
-    protocol  = "TCP"
-    self      = true
+    from_port       = var.port != null ? var.port : local.engine_config[var.engine].port
+    to_port         = var.port != null ? var.port : local.engine_config[var.engine].port
+    protocol        = "TCP"
+    security_groups = var.security_group_ids
+  }
+
+  tags = {
+    Name = "${var.identifier}-sg"
   }
 }
