@@ -75,7 +75,7 @@ resource "aws_db_instance" "this" {
 
   identifier = var.identifier
 
-  ## STORAGE 
+  ## STORAGE
   storage_type          = var.storage_type
   storage_encrypted     = true
   allocated_storage     = var.allocated_storage
