@@ -1,0 +1,12 @@
+---
+site_name: terraform-aws-rds
+
+repo_name: padok-team/terraform-aws-rds
+repo_url: https://github.com/padok-team/terraform-aws-rds
+
+plugins:
+  - techdocs-core
+
+markdown_extensions:
+  - pymdownx.highlight
+  - admonition
