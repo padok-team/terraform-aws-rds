@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-aws-rds
+  description: Terraform module which creates RDS resources on AWS.
+  tags:
+    - "terraform"
+    - "aws"
+  annotations:
+    github.com/project-slug: padok-team/terraform-aws-rds
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: module
+  system: terraform
+  owner: library-aws
+  lifecycle: ready-to-use
