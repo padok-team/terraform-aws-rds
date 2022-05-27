@@ -38,6 +38,11 @@ locals {
 module "rds" {
   source = "../.."
 
+  providers = {
+    aws         = aws
+    aws.backups = aws
+  }
+
   ## GENERAL
   identifier = "rds-poc-library-one-az-mariadb"
 
@@ -62,7 +67,8 @@ module "rds" {
 
 
   ## MAINTENANCE & BACKUP
-  backup_retention_period = 10
+  backup_retention_period         = 10
+  cross_region_backup_replication = false
 }
 
 # Use this security group to allow access to the RDS instance
