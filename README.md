@@ -37,6 +37,7 @@ module "rds" {
 - [Postgres RDS instance with multi AZ](examples/multi_az_rds_instance_postgres/main.tf)
 - [MySQL RDS instance single AZ](examples/one_az_rds_instance_mysql/main.tf)
 - [MariaDB RDS instance single AZ](examples/multi_az_rds_instance_mariadb/main.tf)
+- [Cross-region backups](examples/cross_region_backups_rds_instance_postgress/main.tf)
 
 <!-- BEGIN_TF_DOCS -->
 ## Modules
@@ -56,11 +57,13 @@ No modules.
 | <a name="input_allocated_storage"></a> [allocated\_storage](#input\_allocated\_storage) | Storage allocated to your RDS instance in Gigabytes | `number` | `10` | no |
 | <a name="input_allow_major_version_upgrade"></a> [allow\_major\_version\_upgrade](#input\_allow\_major\_version\_upgrade) | Indicates that major version upgrades are allowed | `bool` | `false` | no |
 | <a name="input_apply_immediately"></a> [apply\_immediately](#input\_apply\_immediately) | Specifies if database modifications should be applied immediately, or during the next maintenance window | `bool` | `false` | no |
+| <a name="input_arn_custom_backups_kms_key"></a> [arn\_custom\_backups\_kms\_key](#input\_arn\_custom\_backups\_kms\_key) | Arn of your custom KMS Key for backups. | `string` | `null` | no |
 | <a name="input_arn_custom_kms_key"></a> [arn\_custom\_kms\_key](#input\_arn\_custom\_kms\_key) | Arn of your custom KMS Key. Useful only if custom\_kms\_key is set to true | `string` | `null` | no |
 | <a name="input_arn_custom_kms_key_secret"></a> [arn\_custom\_kms\_key\_secret](#input\_arn\_custom\_kms\_key\_secret) | Encrypt AWS secret with CMK | `string` | `null` | no |
 | <a name="input_auto_minor_version_upgrade"></a> [auto\_minor\_version\_upgrade](#input\_auto\_minor\_version\_upgrade) | Indicates that minor engine upgrades will be applied automatically to the DB instance during the maintenance window | `bool` | `true` | no |
 | <a name="input_availability_zone"></a> [availability\_zone](#input\_availability\_zone) | Availability zone to use when Multi AZ is disabled | `string` | `"eu-west-3a"` | no |
 | <a name="input_backup_retention_period"></a> [backup\_retention\_period](#input\_backup\_retention\_period) | Backup retention period | `number` | `30` | no |
+| <a name="input_cross_region_backup_replication"></a> [cross\_region\_backup\_replication](#input\_cross\_region\_backup\_replication) | Wheter or not enable cross region backups replication | `bool` | `true` | no |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | If the DB instance should have deletion protection enabled. The database can't be deleted when this value is set to true | `bool` | `true` | no |
 | <a name="input_force_ssl"></a> [force\_ssl](#input\_force\_ssl) | Force SSL for DB connections, only works with Postgres engine | `string` | `true` | no |
 | <a name="input_iam_database_authentication_enabled"></a> [iam\_database\_authentication\_enabled](#input\_iam\_database\_authentication\_enabled) | Specifies whether or not mappings of AWS Identity and Access Management (IAM) accounts to database accounts are enabled | `bool` | `false` | no |

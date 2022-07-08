@@ -148,6 +148,12 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "cross_region_backup_replication" {
+  description = "Wheter or not enable cross region backups replication"
+  type        = bool
+  default     = true
+}
+
 # ===========================[ RDS parameter group]========================
 
 variable "db_parameter_family" {
@@ -169,6 +175,12 @@ variable "parameters" {
 
 variable "arn_custom_kms_key" {
   description = "Arn of your custom KMS Key. Useful only if custom_kms_key is set to true"
+  type        = string
+  default     = null
+}
+
+variable "cross_region_backup_replication_kms_key" {
+  description = "Arn of your custom KMS Key for backups."
   type        = string
   default     = null
 }

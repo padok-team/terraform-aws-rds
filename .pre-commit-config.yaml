@@ -6,7 +6,7 @@ repos:
       - id: commitizen
         stages:
           - commit-msg
-  - repo: git://github.com/antonbabenko/pre-commit-terraform
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.51.0
     hooks:
       - id: terraform_fmt

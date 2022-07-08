@@ -117,6 +117,26 @@ resource "aws_db_instance" "this" {
   }
 }
 
+# Automated cross region backups replication
+resource "aws_kms_key" "backups" {
+  count = var.cross_region_backup_replication && var.arn_custom_backups_kms_key == null ? 1 : 0
+
+  description             = "KMS key encryption for ${var.identifier} backups"
+  deletion_window_in_days = 10
+
+  provider = aws.backups
+}
+
+resource "aws_db_instance_automated_backups_replication" "this" {
+  count = var.cross_region_backup_replication ? 1 : 0
+
+  source_db_instance_arn = aws_db_instance.this.arn
+  retention_period       = 7
+  kms_key_id             = var.arn_custom_backups_kms_key == null ? aws_kms_key.backups.0.arn : var.arn_custom_backups_kms_key
+
+  provider = aws.backups
+}
+
 resource "aws_db_subnet_group" "this" {
   name        = "db-subnet-group-${var.identifier}"
   description = "DB Subnet group for ${var.identifier}"

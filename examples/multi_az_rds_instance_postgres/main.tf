@@ -37,6 +37,11 @@ locals {
 module "rds" {
   source = "../.."
 
+  providers = {
+    aws         = aws
+    aws.backups = aws
+  }
+
   ## GENERAL
   identifier = "rds-poc-library-multi-az"
 
@@ -62,6 +67,8 @@ module "rds" {
   subnet_ids         = module.my_vpc.private_subnets_ids
   vpc_id             = module.my_vpc.vpc_id
   security_group_ids = [aws_security_group.a_basic_security_group.id]
+
+  cross_region_backup_replication = false
 }
 
 # Use this security group to allow access to the RDS instance

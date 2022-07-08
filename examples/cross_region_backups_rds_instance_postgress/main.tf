@@ -22,61 +22,66 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  region = local.backups_region
+  alias  = "backups"
+
+  default_tags {
+    tags = {
+      Env         = local.env
+      Region      = local.backups_region
+      OwnedBy     = "Padok"
+      ManagedByTF = true
+    }
+  }
+}
+
 # some variables to make life easier
 locals {
 
-  name   = "basic_private_mysql"
-  env    = "test"
-  region = "eu-west-3"
+  name           = "basic_private"
+  env            = "test"
+  region         = "eu-west-3"
+  backups_region = "eu-west-2"
 }
 
 ################################################################################
 # RDS
 ################################################################################
 
-
 module "rds" {
   source = "../.."
 
   providers = {
     aws         = aws
-    aws.backups = aws
+    aws.backups = aws.backups
   }
 
   ## GENERAL
-  identifier = "rds-poc-library-one-az"
-
-  ## STORAGE
-  allocated_storage     = 5
-  max_allocated_storage = 10
-  instance_class        = "db.t3.micro"
+  identifier = "rds-poc-library-cross-region-backups"
 
   ## DATABASE
-  engine                       = "mysql"
-  engine_version               = "5.7"
-  db_parameter_family          = "mysql5.7"
-  performance_insights_enabled = false # Performance insight is not supported by MySQL
-  name                         = "aws_rds_instance_mysql_db_poc_library_one_az"
-  username                     = "aws_mysql_user" # With Mysql username length cannot be greater than 16 characters
+  engine              = "postgres"
+  engine_version      = "13.4"
+  db_parameter_family = "postgres13"
+  name                = "aws_rds_instance_postgresql_db_poc_cross_region_backups"
+  username            = "aws_rds_instance_postgresql_user_poc_cross_region_backups"
 
   parameters = [{
-    name         = "disconnect_on_expired_password"
-    value        = 1
-    apply_method = "pending-reboot"
+    name         = "application_name"
+    value        = "mydb"
+    apply_method = "immediate"
     },
     {
-      name         = "max_user_connections"
+      name         = "rds.rds_superuser_reserved_connections"
       value        = 4
       apply_method = "pending-reboot"
   }]
+
   ## NETWORK
   subnet_ids         = module.my_vpc.private_subnets_ids
   vpc_id             = module.my_vpc.vpc_id
   security_group_ids = [aws_security_group.a_basic_security_group.id]
-
-  ## MAINTENANCE & BACKUP
-  backup_retention_period         = 10
-  cross_region_backup_replication = false
 }
 
 # Use this security group to allow access to the RDS instance
