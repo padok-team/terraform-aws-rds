@@ -179,7 +179,7 @@ variable "arn_custom_kms_key" {
   default     = null
 }
 
-variable "arn_custom_backups_kms_key" {
+variable "cross_region_backup_replication_kms_key" {
   description = "Arn of your custom KMS Key for backups."
   type        = string
   default     = null
