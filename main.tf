@@ -28,8 +28,14 @@ resource "random_password" "this" {
   min_numeric = 5
 }
 
+resource "random_string" "random" {
+  length           = 6
+  special          = false
+  upper            = false
+}
+
 resource "aws_secretsmanager_secret" "this" {
-  name                    = "${var.identifier}-password"
+  name                    = "${var.identifier}-password-${random_string.random.id}"
   description             = "${var.identifier} RDS password secret"
   recovery_window_in_days = var.rds_secret_recovery_window_in_days
   kms_key_id              = var.arn_custom_kms_key_secret == null ? aws_kms_key.this.0.arn : var.arn_custom_kms_key_secret
