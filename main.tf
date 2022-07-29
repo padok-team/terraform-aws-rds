@@ -22,7 +22,7 @@ resource "random_password" "this" {
   special     = false
   upper       = true
   lower       = true
-  number      = true
+  numeric     = true
   min_lower   = 15
   min_upper   = 5
   min_numeric = 5
