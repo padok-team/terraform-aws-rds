@@ -156,16 +156,17 @@ resource "aws_security_group" "this" {
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
 
-  # In case of an empty list of security group ids, create a default without inbound allowed
-  ingress {
-    from_port       = var.port != null ? var.port : local.engine_config[var.engine].port
-    to_port         = var.port != null ? var.port : local.engine_config[var.engine].port
-    protocol        = "TCP"
-    security_groups = var.security_group_ids
-    self            = length(var.security_group_ids) == 0 ? true : false
-  }
-
   tags = {
     Name = "${var.identifier}-sg"
   }
+}
+
+resource "aws_security_group_rule" "these" {
+  for_each                 = toset(var.security_group_ids)
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.port != null ? var.port : local.engine_config[var.engine].port
+  to_port                  = var.port != null ? var.port : local.engine_config[var.engine].port
+  source_security_group_id = each.value
+  security_group_id        = aws_security_group.this.id
 }
