@@ -29,9 +29,9 @@ resource "random_password" "this" {
 }
 
 resource "random_string" "random" {
-  length           = 6
-  special          = false
-  upper            = false
+  length  = 6
+  special = false
+  upper   = false
 }
 
 resource "aws_secretsmanager_secret" "this" {
