@@ -93,7 +93,7 @@ resource "aws_db_instance" "this" {
   engine               = var.engine
   engine_version       = var.engine_version
   parameter_group_name = aws_db_parameter_group.this.name
-  name                 = var.name
+  db_name              = var.name
   username             = var.username
   password             = random_password.this.result
 
