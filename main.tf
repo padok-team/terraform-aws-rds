@@ -29,9 +29,9 @@ resource "random_password" "this" {
 }
 
 resource "random_string" "random" {
-  length           = 6
-  special          = false
-  upper            = false
+  length  = 6
+  special = false
+  upper   = false
 }
 
 resource "aws_secretsmanager_secret" "this" {
@@ -93,7 +93,7 @@ resource "aws_db_instance" "this" {
   engine               = var.engine
   engine_version       = var.engine_version
   parameter_group_name = aws_db_parameter_group.this.name
-  name                 = var.name
+  db_name              = var.name
   username             = var.username
   password             = random_password.this.result
 
@@ -156,16 +156,17 @@ resource "aws_security_group" "this" {
   description = "Security group for ${var.identifier}"
   vpc_id      = var.vpc_id
 
-  # In case of an empty list of security group ids, create a default without inbound allowed
-  ingress {
-    from_port       = var.port != null ? var.port : local.engine_config[var.engine].port
-    to_port         = var.port != null ? var.port : local.engine_config[var.engine].port
-    protocol        = "TCP"
-    security_groups = var.security_group_ids
-    self            = length(var.security_group_ids) == 0 ? true : false
-  }
-
   tags = {
     Name = "${var.identifier}-sg"
   }
+}
+
+resource "aws_security_group_rule" "these" {
+  for_each                 = toset(var.security_group_ids)
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = var.port != null ? var.port : local.engine_config[var.engine].port
+  to_port                  = var.port != null ? var.port : local.engine_config[var.engine].port
+  source_security_group_id = each.value
+  security_group_id        = aws_security_group.this.id
 }
