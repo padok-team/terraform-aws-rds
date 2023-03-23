@@ -1,6 +1,7 @@
 output "this" {
   description = "RDS Instance"
   value       = aws_db_instance.this
+  sensitive   = true
 }
 
 output "security_group" {
