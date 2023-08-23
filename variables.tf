@@ -84,6 +84,12 @@ variable "backup_retention_period" {
   default     = 30
 }
 
+variable "backup_window" {
+  description = "Backup window"
+  type        = string
+  default     = null
+}
+
 variable "port" {
   description = "The port on which the DB accepts connections. Default is chosen depeding on the engine"
   type        = number
