@@ -111,6 +111,7 @@ resource "aws_db_instance" "this" {
   allow_major_version_upgrade = var.allow_major_version_upgrade
   maintenance_window          = var.maintenance_window
   backup_retention_period     = var.backup_retention_period
+  backup_window               = var.backup_window
   apply_immediately           = var.apply_immediately
   skip_final_snapshot         = var.rds_skip_final_snapshot
   final_snapshot_identifier   = "final-snapshot-${var.identifier}"
